@@ -1,0 +1,65 @@
+# Reusable Node.js CI workflow for Areednow organization repos.
+# Called via: uses: Areednow/.github/.github/workflows/node-ci.yml@main
+name: Node CI
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: "Node.js version to use"
+        type: string
+        default: "20"
+      run-build:
+        description: "Whether to run npm run build"
+        type: boolean
+        default: true
+      run-typecheck:
+        description: "Whether to run tsc --noEmit"
+        type: boolean
+        default: true
+      run-lint:
+        description: "Whether to run npm run lint"
+        type: boolean
+        default: true
+      working-directory:
+        description: "Directory to run commands in (for monorepos)"
+        type: string
+        default: "."
+    secrets:
+      NPM_TOKEN:
+        description: "NPM token for private packages (if needed)"
+        required: false
+
+jobs:
+  ci:
+    name: Build & Lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ inputs.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: npm
+          cache-dependency-path: "${{ inputs.working-directory }}/package-lock.json"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        if: ${{ inputs.run-typecheck }}
+        run: npx tsc --noEmit
+
+      - name: Lint
+        if: ${{ inputs.run-lint }}
+        run: npm run lint
+
+      - name: Build
+        if: ${{ inputs.run-build }}
+        run: npm run build

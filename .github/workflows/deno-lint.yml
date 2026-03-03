@@ -1,0 +1,31 @@
+# Reusable Deno lint workflow for Supabase Edge Functions.
+# Called via: uses: Areednow/.github/.github/workflows/deno-lint.yml@main
+name: Deno Lint
+
+on:
+  workflow_call:
+    inputs:
+      deno-version:
+        description: "Deno version to use"
+        type: string
+        default: "v2.x"
+      lint-path:
+        description: "Path to Deno source files to lint"
+        type: string
+        default: "supabase/functions/"
+
+jobs:
+  lint:
+    name: Deno Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Deno ${{ inputs.deno-version }}
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: ${{ inputs.deno-version }}
+
+      - name: Run Deno linter
+        run: deno lint ${{ inputs.lint-path }}
