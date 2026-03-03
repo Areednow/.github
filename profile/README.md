@@ -17,6 +17,13 @@ We operate a rapid retail grocery delivery service in the UAE and develop techno
 ![Apache Spark](https://img.shields.io/badge/-Apache%20Spark-E25A1C?style=flat-square&logo=apachespark&logoColor=white)
 ![Apache Iceberg](https://img.shields.io/badge/-Apache%20Iceberg-4A90D9?style=flat-square&logo=apache&logoColor=white)
 ![DuckDB](https://img.shields.io/badge/-DuckDB-FFF000?style=flat-square&logo=duckdb&logoColor=black)
+![Tailwind CSS](https://img.shields.io/badge/-Tailwind%20CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![Vite](https://img.shields.io/badge/-Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Deno](https://img.shields.io/badge/-Deno-000000?style=flat-square&logo=deno&logoColor=white)
+![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![Stripe](https://img.shields.io/badge/-Stripe-635BFF?style=flat-square&logo=stripe&logoColor=white)
+![Redis](https://img.shields.io/badge/-Redis-DC382D?style=flat-square&logo=redis&logoColor=white)
+![Google Maps](https://img.shields.io/badge/-Google%20Maps-4285F4?style=flat-square&logo=googlemaps&logoColor=white)
 
 🛒 **[areednow.com](https://areednow.com)**
 
