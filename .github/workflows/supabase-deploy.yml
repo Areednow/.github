@@ -1,0 +1,43 @@
+# Reusable Supabase Edge Function deployment workflow for Areednow organisation repos.
+# Called via: uses: Areednow/.github/workflows/supabase-deploy.yml@main
+#
+# Each calling repo passes its own explicit list of function slugs.
+# This prevents any repo from accidentally deploying functions it does not own.
+#
+# See docs/EDGE_FUNCTION_OWNERSHIP.md in areednow-delivers for the full ownership reference.
+name: Supabase Deploy
+
+on:
+  workflow_call:
+    inputs:
+      functions:
+        description: "Space-separated list of function slugs to deploy"
+        type: string
+        required: true
+      project-ref:
+        description: "Supabase project ref"
+        type: string
+        default: "rpxfngyyghldalhxjgfr"
+    secrets:
+      SUPABASE_ACCESS_TOKEN:
+        required: true
+
+jobs:
+  deploy:
+    name: Deploy Edge Functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+
+      - name: Deploy functions
+        run: |
+          for fn in ${{ inputs.functions }}; do
+            echo "Deploying $fn..."
+            supabase functions deploy $fn --project-ref ${{ inputs.project-ref }}
+          done
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
